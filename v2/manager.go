@@ -575,8 +575,8 @@ func (c *Manager) EventChan() (<-chan Event, <-chan error) {
 func (c *Manager) waitForEvents(ec chan<- Event, errCh chan<- error) {
 	fd, wd, err := c.MemoryEventFD()
 
-	defer syscall.InotifyRmWatch(fd, wd)
 	defer syscall.Close(fd)
+	defer syscall.InotifyRmWatch(fd, wd)
 
 	if err != nil {
 		errCh <- err
